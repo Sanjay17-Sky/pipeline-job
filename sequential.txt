@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+    stages {
+        stage('Clone Code') {
+            steps {
+                git branch: 'main',
+                url: 'https://github.com/Sanjay17-Sky/pipeline-job.git'
+                }
+            }
+            stage('Compile All') {
+                steps {
+                    bat 'javac Test1.java Test2.java Test3.java'
+                    }
+                }
+                stage('Parallel Run') {
+                    parallel {
+                        stage('Run Test1') {
+                            steps {
+                                bat 'java Test1'
+                                }
+                            }
+                            stage('Run Test2') {
+                                steps {
+                                    bat 'java Test2'
+                                    }
+                                }
+                                stage('Run Test3') {
+                                    steps {
+                                        bat 'java Test3'
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }  
